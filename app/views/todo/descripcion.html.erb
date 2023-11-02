@@ -1,0 +1,35 @@
+
+<h1><%= @info["title"] %></h1>
+
+<img src="<%= @link_img + @info["poster_path"] %>" alt="Poster de la película">
+<p><strong>Fecha de lanzamiento:</strong> <%= @info["release_date"] %></p>
+<p><strong>Descripción:</strong> <%= @info["overview"] %></p>
+
+
+
+<h2>Géneros</h2>
+<ul>
+  <% @info["genres"].each do |genero| %>
+    <li><%= genero["name"] %></li>
+  <% end %>
+</ul>
+
+<% if @info_videos.is_a?(String) %>
+  <% videos_data = JSON.parse(@info_videos) %>
+
+  <% if videos_data.is_a?(Hash) && videos_data.has_key?("results") %>
+    <% videos_data["results"].each do |video| %>
+
+      <% if video["site"] == 'YouTube' && video["key"].present? && video["name"].downcase == "official trailer"  %>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= video['key'] %>" frameborder="0" allowfullscreen></iframe>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+
+
+
+
+<!-- Y así sucesivamente para el resto de la información -->

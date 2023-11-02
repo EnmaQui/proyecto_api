@@ -10,7 +10,8 @@
       <li>
         <img src="<%= @link_img + pelicula['poster_path'] %>" alt="">
         <strong><%= pelicula['title'] %></strong>
-        <p><%= pelicula['overview'] %></p>
+        <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']) %>
+
       </li>
     <% end %>
   </ul>
