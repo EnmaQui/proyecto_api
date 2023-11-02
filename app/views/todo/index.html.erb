@@ -1,0 +1,18 @@
+<h1>Todo#homepage</h1>
+<p>Find me in app/views/todo/homepage.html.erb</p>
+<% @movie_details %>
+
+<% if @error_message %>
+  <p><%= @error_message %></p>
+<% else %>
+  <ul>
+    <% @movie_details.each do |pelicula| %>
+      <li>
+        <img src="<%= @link_img + pelicula['poster_path'] %>" alt="">
+        <strong><%= pelicula['title'] %></strong>
+        <p><%= pelicula['overview'] %></p>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
