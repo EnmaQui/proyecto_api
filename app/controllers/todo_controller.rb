@@ -2,7 +2,7 @@ class TodoController < ApplicationController
   require 'json'
   require 'rest-client'
 
-  def index
+  def populares
     
     #movie_id = params[:id]  # El ID de la película lo obtienes desde la URL
     api_key = '7752de1a342e0930da1c72487148b06b'

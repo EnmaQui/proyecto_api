@@ -10,7 +10,6 @@
       <li>
         <img src="<%= @link_img + pelicula['poster_path'] %>" alt="">
         <strong><%= pelicula['title'].upcase %></strong>
-        
         <p><%= pelicula['vote_average'].truncate %>/10</p>
         <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']) %>
 

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  resources :todo
-
+  get '/populares', to: 'todo#populares'
+  #resources :todo
   get '/descripcion', to: 'todo#descripcion'
 
   #root 'todo#homepage'
