@@ -5,7 +5,7 @@ class TodoController < ApplicationController
   def index
     
     #movie_id = params[:id]  # El ID de la película lo obtienes desde la URL
-    api_key = '7752de1a342e0930da1c72487148b06b'  # Reemplaza con tu clave de API de TMDb
+    api_key = '7752de1a342e0930da1c72487148b06b'
 
     url = URI.parse("https://api.themoviedb.org/3/movie/popular?api_key=#{api_key}&language=es-ES")
     @link_img='https://image.tmdb.org/t/p/w500'

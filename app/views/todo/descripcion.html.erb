@@ -1,8 +1,11 @@
+<%= @info%>
 
+<button type="button" class="btn btn-primary">Primary</button>
 <h1><%= @info["title"] %></h1>
 
 <img src="<%= @link_img + @info["poster_path"] %>" alt="Poster de la película">
 <p><strong>Fecha de lanzamiento:</strong> <%= @info["release_date"] %></p>
+<p><strong>Popularidad:</strong><%= @info["popularity"]%></p>
 <p><strong>Descripción:</strong> <%= @info["overview"] %></p>
 
 
@@ -14,17 +17,39 @@
   <% end %>
 </ul>
 
+
+<h2>Compania</h2>
+<ul>
+  <% @info["production_companies"].each do |companies| %>
+    <li><%= companies["name"] %></li>
+    <img src="<%= @link_img.to_s + companies['logo_path'].to_s%>" alt="">
+  <% end %>
+</ul>
+
+
 <% if @info_videos.is_a?(String) %>
   <% videos_data = JSON.parse(@info_videos) %>
 
   <% if videos_data.is_a?(Hash) && videos_data.has_key?("results") %>
+    <% video_encontrado = false %>
+
     <% videos_data["results"].each do |video| %>
 
-      <% if video["site"] == 'YouTube' && video["key"].present? && video["name"].downcase == "official trailer"  %>
+      <% if video["site"] == 'YouTube' && video["key"].present? && video["name"].downcase =~ /trailer/i %>
         <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= video['key'] %>" frameborder="0" allowfullscreen></iframe>
+        <% video_encontrado = true %>
+        <% break %>
       <% end %>
+
     <% end %>
+
+    <% unless video_encontrado %>
+      <p>El video no está disponible en este momento. Puedes verlo en <a href="https://www.youtube.com/watch?v=<%= videos_data["results"].first['key'] %>">YouTube</a>.</p>
+    <% end %>
+
   <% end %>
+
+  
 <% end %>
 
 

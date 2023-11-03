@@ -3,6 +3,8 @@ source "https://rubygems.org"
 ruby "3.2.2"
 
 
+gem 'bootstrap', "~> 5.3.2"
+
 gem 'rest-client'
 #gema que hace posible las peticiones
 
