@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get '/populares', to: 'todo#populares'
+  get '/categoria', to: 'todo#categoria'
   #resources :todo
   get '/descripcion', to: 'todo#descripcion'
-
+  root 'todo#index'
   #root 'todo#homepage'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

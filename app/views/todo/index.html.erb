@@ -1,0 +1,21 @@
+
+<div class="container"> 
+    <div class="row align-items-center">
+        <% if @error_message %>
+            <p><%= @error_message %></p>
+        <% else %>
+            <% @nuevas.each do |pelicula| %>
+            <div class="col">
+                <div class="card" style="width: 18rem;">
+                    <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
+                        <p class="card-text"><%= pelicula['vote_average'].truncate %>/10</p>
+                        <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+        <% end %>
+    </div>
+</div> 
