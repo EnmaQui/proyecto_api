@@ -1,60 +1,55 @@
-<%= @info%>
 
-<button type="button" class="btn btn-primary">Primary</button>
-<h1><%= @info["title"] %></h1>
+<!-- Y así sucesivamente para el resto de la información -->
 
-<img src="<%= @link_img + @info["poster_path"] %>" alt="Poster de la película">
-<p><strong>Fecha de lanzamiento:</strong> <%= @info["release_date"] %></p>
-<p><strong>Popularidad:</strong><%= @info["popularity"]%></p>
-<p><strong>Descripción:</strong> <%= @info["overview"] %></p>
-
-
-
-<h2>Géneros</h2>
-<ul>
-  <% @info["genres"].each do |genero| %>
-    <li><%= genero["name"] %></li>
-  <% end %>
-</ul>
+<div class="container" style="margin-top:20px;color:white;">
+  <div class="clearfix">
+    <img src="<%= @link_img + @info["poster_path"] %>" class="col-md-6 float-md-end mb-3 ms-md-3"  alt="Poster de la película">
+    <h1><%= @info["title"] %></h1>
+    <p><strong>Fecha de lanzamiento:</strong> <%= @info["release_date"] %></p>
+  <p><strong>Popularidad:</strong><%= @info["popularity"]%></p>
+  <p><strong>Descripción:</strong> <%= @info["overview"] %></p>
 
 
-<h2>Compania</h2>
-<ul>
-  <% @info["production_companies"].each do |companies| %>
-    <li><%= companies["name"] %></li>
-    <img src="<%= @link_img.to_s + companies['logo_path'].to_s%>" alt="">
-  <% end %>
-</ul>
+
+  <h2>Géneros</h2>
+  <ul>
+    <% @info["genres"].each do |genero| %>
+      <li><%= genero["name"] %></li>
+    <% end %>
+  </ul>
 
 
-<% if @info_videos.is_a?(String) %>
-  <% videos_data = JSON.parse(@info_videos) %>
+  <h2>Compania</h2>
+  <ul>
+    <% @info["production_companies"].each do |companies| %>
+      <li><%= companies["name"] %></li>
+    <% end %>
+  </ul>
 
-  <% if videos_data.is_a?(Hash) && videos_data.has_key?("results") %>
-    <% video_encontrado = false %>
 
-    <% videos_data["results"].each do |video| %>
+  <% if @info_videos.is_a?(String) %>
+    <% videos_data = JSON.parse(@info_videos) %>
 
-      <% if video["site"] == 'YouTube' && video["key"].present? && video["name"].downcase =~ /trailer/i %>
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/<%= video['key'] %>" frameborder="0" allowfullscreen></iframe>
-        <% video_encontrado = true %>
-        <% break %>
+    <% if videos_data.is_a?(Hash) && videos_data.has_key?("results") %>
+      <% video_encontrado = false %>
+
+      <% videos_data["results"].each do |video| %>
+
+        <% if video["site"] == 'YouTube' && video["key"].present? && video["name"].downcase =~ /trailer/i %>
+          <iframe width="480" height="320" src="https://www.youtube.com/embed/<%= video['key'] %>" frameborder="0" allowfullscreen></iframe>
+          <% video_encontrado = true %>
+          <% break %>
+        <% end %>
+
+      <% end %>
+
+      <% unless video_encontrado %>
+        <p>El video no está disponible en este momento. Puedes verlo en <a href="https://www.youtube.com/watch?v=<%= videos_data["results"].first['key'] %>">YouTube</a>.</p>
       <% end %>
 
     <% end %>
 
-    <% unless video_encontrado %>
-      <p>El video no está disponible en este momento. Puedes verlo en <a href="https://www.youtube.com/watch?v=<%= videos_data["results"].first['key'] %>">YouTube</a>.</p>
-    <% end %>
-
+    
   <% end %>
-
-  
-<% end %>
-
-
-
-
-
-
-<!-- Y así sucesivamente para el resto de la información -->
+  </div>
+</div>

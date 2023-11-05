@@ -1,17 +1,17 @@
 
-<div class="container"> 
-    <div class="row align-items-center">
+<div class="container-sm" style="margin-top:20px;"> 
+    <div class="row" style="gap:20px;">
         <% if @error_message %>
             <p><%= @error_message %></p>
         <% else %>
             <% @nuevas.each do |pelicula| %>
             <div class="col">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem;height:40rem;">
                     <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
                     <div class="card-body">
                         <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
                         <p class="card-text"><%= pelicula['vote_average'].truncate %>/10</p>
-                        <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
+                        <div class="centrar" style="width: 100%;display:flex;justify-content:center;"><%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %></div> 
                     </div>
                 </div>
             </div>
