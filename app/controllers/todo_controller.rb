@@ -1,30 +1,49 @@
 class TodoController < ApplicationController
+  include Kaminari::PageScopeMethods
   before_action :comun
   require 'json'
   require 'rest-client'
 
   def categoria
-    
-    #movie_id = params[:id]  # El ID de la película lo obtienes desde la URL
-    #https://api.themoviedb.org/3/discover/movie?api_key=#{api_key}&language=es-ES&with_genres=28
     id_genero = params[:id_gen]
     api_key = '7752de1a342e0930da1c72487148b06b'
-
-    url = URI.parse("https://api.themoviedb.org/3/discover/movie?api_key=#{api_key}&language=es-ES&with_genres=#{id_genero}")
-    @link_img='https://image.tmdb.org/t/p/w500'
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true if url.scheme == 'https'
-    
-    request = Net::HTTP::Get.new(url.request_uri)
-    
-    response = http.request(request)
-    
-    if response.code == '200'
-      @movie_details = JSON.parse(response.body)['results']
-    else
-      @error_message = "Error: #{response.code}"
+    @link_img = 'https://image.tmdb.org/t/p/w500'
+  
+    # Inicializamos un array vacío para almacenar las películas
+    @movie_details = []
+  
+    page_number = 1
+    max_pages = 10
+  
+    while page_number <= max_pages
+      url = URI.parse("https://api.themoviedb.org/3/discover/movie?api_key=#{api_key}&language=es-ES&with_genres=#{id_genero}&page=#{page_number}")
+  
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true if url.scheme == 'https'
+  
+      request = Net::HTTP::Get.new(url.request_uri)
+      response = http.request(request)
+  
+      if response.code == '200'
+        movies = JSON.parse(response.body)['results']
+        break if movies.empty? # Si no hay más resultados, salimos del bucle
+        @movie_details.concat(movies)
+      else
+        @error_message = "Error: #{response.code}"
+        break
+      end
+  
+      page_number += 1
     end
+  
+    # Paginamos los resultados
+    @movie_details = Kaminari.paginate_array(@movie_details).page(params[:page]).per(15)
   end
+  
+  
+  
+  
+  
 
   def descripcion
     api_key = '7752de1a342e0930da1c72487148b06b'
@@ -60,26 +79,40 @@ class TodoController < ApplicationController
 
 
   def index
-    #https://api.themoviedb.org/3/discover/movie?api_key=#{api_key}&language=es-ES&with_genres=#{id_genero}
     api_key = '7752de1a342e0930da1c72487148b06b'
-
     url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}")
     @link_img='https://image.tmdb.org/t/p/w500'
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true if url.scheme == 'https'
-    
     request = Net::HTTP::Get.new(url.request_uri)
-    
     response = http.request(request)
-    
+  
     if response.code == '200'
-      @nuevas = JSON.parse(response.body)['results']
+      movies = JSON.parse(response.body)['results']
+      @nuevas = Kaminari.paginate_array(movies).page(params[:page]).per(10) # Pagina los resultados, 10 por página
     else
       @error_message = "Error: #{response.code}"
     end
-
-
-
-
   end
+  
+
+  def prueba
+    api_key = '7752de1a342e0930da1c72487148b06b'
+    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}")
+    @link_img='https://image.tmdb.org/t/p/w500'
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true if url.scheme == 'https'
+    request = Net::HTTP::Get.new(url.request_uri)
+    response = http.request(request)
+    
+    if response.code == '200'
+      movies = JSON.parse(response.body)['results']
+      page = params[:page] || 1
+      per_page = 10
+      @nuevas = Kaminari.paginate_array(movies).page(page).per(per_page) # Pagina los resultados, 10 por página
+    else
+      @error_message = "Error: #{response.code}"
+    end
+  end
+  
 end

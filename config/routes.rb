@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   #resources :todo
   get '/descripcion', to: 'todo#descripcion'
   root 'todo#index'
+  get '/prueba', to: 'todo#prueba'
   #root 'todo#homepage'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

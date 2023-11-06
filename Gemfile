@@ -1,6 +1,11 @@
 source "https://rubygems.org"
 
 ruby "3.2.2"
+gem 'bootstrap_pagination'
+
+gem 'kaminari'
+
+gem 'will_paginate'
 
 gem 'bootstrap', "~> 5.3.2"
 

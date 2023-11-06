@@ -1,21 +1,48 @@
 
 <div class="container-sm text-center" style="margin-top:20px;"> 
-  <div class="row" style="gap:20px;">
+    <div class="row" style="gap:20px;">
       <% if @error_message %>
-          <p><%= @error_message %></p>
+        <p><%= @error_message %></p>
       <% else %>
-          <% @movie_details.each do |pelicula| %>
+        <% @movie_details.each do |pelicula| %>
           <div class="col">
-              <div class="card" style="width: 18rem;height:40rem;">
-                  <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
-                  <div class="card-body">
-                      <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
-                      <p class="card-text"><%= pelicula['vote_average'].truncate %>/10</p>
-                      <div class="centrar" style="width: 100%;display:flex;justify-content:center;"><%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %></div> 
-                  </div>
+            <div class="card" style="width: 18rem;height:40rem;">
+              <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
+              <div class="card-body">
+                <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
+                <p class="card-text"><%= pelicula['vote_average'].truncate %>/10</p>
+                <div class="centrar" style="width: 100%;display:flex;justify-content:center;">
+                  <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
+                </div> 
               </div>
+            </div>
           </div>
-          <% end %>
+        <% end %>
       <% end %>
-  </div>
-</div> 
+    </div>
+  </div> 
+
+    <!-- Paginación -->
+    <nav aria-label="Page navigation example" style="margin-top: 30px;">
+        <ul class="pagination justify-content-center">
+          <% if @movie_details.current_page > 1 %>
+            <li class="page-item">
+              <%= link_to 'Previous', categoria_path(id_gen: params[:id_gen], page: @movie_details.current_page - 1), class: 'page-link' %>
+            </li>
+          <% end %>
+          
+          <% 1.upto(@movie_details.total_pages) do |page| %>
+            <li class="page-item <%= 'active' if @movie_details.current_page == page %>">
+              <%= link_to page, categoria_path(id_gen: params[:id_gen], page: page), class: 'page-link' %>
+            </li>
+          <% end %>
+    
+          <% if @movie_details.current_page < @movie_details.total_pages %>
+            <li class="page-item">
+              <%= link_to 'Next', categoria_path(id_gen: params[:id_gen], page: @movie_details.current_page + 1), class: 'page-link' %>
+            </li>
+          <% end %>
+        </ul>
+      </nav>
+
+    
