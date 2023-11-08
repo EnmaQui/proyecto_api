@@ -122,21 +122,22 @@ class TodoController < ApplicationController
   def resultado
     api_key = '7752de1a342e0930da1c72487148b06b'
     @link_img = 'https://image.tmdb.org/t/p/w500'
-    #query= params[:nombre]
-    query= "saw"
+    query_i = params[:query]
+    peli=query_i.to_s.gsub(/\s/, '%20')
+  
     # Obtener información de la película
-    url = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&query=#{query}&include_adult=true&language=es-ES&page=1")
+    url = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&query=#{peli}&include_adult=true&language=es-ES&page=1")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true if url.scheme == 'https'
     request = Net::HTTP::Get.new(url.request_uri)
     response = http.request(request)
   
     if response.code == '200'
-      @info = JSON.parse(response.body)
+      @info = JSON.parse(response.body)['results']
     else
       @error_message = "Error: #{response.code}"
     end
-    
+
   end
   
   

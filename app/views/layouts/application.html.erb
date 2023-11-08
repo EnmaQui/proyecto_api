@@ -30,17 +30,10 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categorias
                 </a>
-
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <% @generos["genres"].each do |lista| %>
-                    <li style="text-align: center;"><%= link_to lista["name"], categoria_path(id_gen: lista['id'], class: 'dropdown-item') %></li>
-                  <% end %>
-
                 <ul class="dropdown-menu">
                   <%@generos["genres"].each do |lista|%>
                     <li style="text-align: center;"><%= link_to lista["name"], categoria_path(id_gen: lista['id']) %></li>
                   <%end%>
-
                 </ul>
               </li>
 
