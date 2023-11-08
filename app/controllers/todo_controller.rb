@@ -39,12 +39,8 @@ class TodoController < ApplicationController
     # Paginamos los resultados
     @movie_details = Kaminari.paginate_array(@movie_details).page(params[:page]).per(20)
   end
-  
-  
-  
-  
-  
-
+  def homepage
+  end
   def descripcion
     api_key = '7752de1a342e0930da1c72487148b06b'
     movie_id = params[:parametro]
