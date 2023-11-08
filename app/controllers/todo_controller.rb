@@ -121,7 +121,7 @@ class TodoController < ApplicationController
     response = http.request(request)
   
     if response.code == '200'
-      @info = JSON.parse(response.body)
+      @info = JSON.parse(response.body)['results']
     else
       @error_message = "Error: #{response.code}"
     end
