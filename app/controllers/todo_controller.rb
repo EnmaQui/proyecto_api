@@ -89,7 +89,7 @@ class TodoController < ApplicationController
 
   def index
     api_key = '7752de1a342e0930da1c72487148b06b'
-    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}")
+    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}&language=es-ES")
     @link_img='https://image.tmdb.org/t/p/w500'
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true if url.scheme == 'https'
