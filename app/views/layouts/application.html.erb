@@ -32,7 +32,7 @@
                 </a>
                 <ul class="dropdown-menu">
                   <%@generos["genres"].each do |lista|%>
-                    <li><%= link_to lista["name"], categoria_path(id_gen: lista['id']) %></li>
+                    <li style="text-align: center;"><%= link_to lista["name"], categoria_path(id_gen: lista['id']) %></li>
                   <%end%>
                 </ul>
               </li>
