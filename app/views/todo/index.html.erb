@@ -1,44 +1,51 @@
 <div class="container-sm" style="margin-top:20px;"> 
-    <div class="row" style="gap:20px;">
-      <% if @error_message %>
-        <p><%= @error_message %></p>
-      <% else %>
-        <% @nuevas.each do |pelicula| %>
-          <div class="col">
-            <div class="card" style="width: 18rem;height:40rem;">
-              <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
-              <div class="card-body">
-                <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
-                <p class="card-text"><%= pelicula['vote_average'].truncate %>/10</p>
-                <div class="centrar" style="width: 100%;display:flex;justify-content:center;">
-                  <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
-                </div> 
-              </div>
+  <div class="row" style="gap:20px;">
+    <% if @error_message %>
+      <p><%= @error_message %></p>
+    <% else %>
+      <% @nuevas.each do |pelicula| %>
+        <div class="col">
+          <div class="card" style="width: 18rem;height:40rem;">
+            <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
+              <% @votos=pelicula['vote_average'].to_i.truncate / 2 %>
+              <% (1..5).each do |i| %>
+              <% if i <= @votos.to_i %>
+
+              <i class="fa fa-star fa-lg"></i>
+              <% end %>
+            <% end %>
+              <p class="card-text"><%= pelicula['vote_average'].to_i.truncate / 2 %>/5</p>
+              <p></p>
+              <div class="centrar" style="width: 100%;display:flex;justify-content:center;">
+                <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
+              </div> 
             </div>
           </div>
-        <% end %>
-        <% if @nuevas.total_pages > 1 %>
-          <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center">
-              <% if @nuevas.current_page > 1 %>
-                <li class="page-item">
-                  <%= link_to 'Previous', root_path(page: @nuevas.current_page - 1), class: 'page-link' %>
-                </li>
-              <% end %>
-              <% 1.upto(@nuevas.total_pages) do |page| %>
-                <li class="page-item <%= 'active' if @nuevas.current_page == page %>">
-                  <%= link_to page, root_path(page: page), class: 'page-link' %>
-                </li>
-              <% end %>
-              <% if @nuevas.current_page < @nuevas.total_pages %>
-                <li class="page-item">
-                  <%= link_to 'Next', root_path(page: @nuevas.current_page + 1), class: 'page-link' %>
-                </li>
-              <% end %>
-            </ul>
-          </nav>
-        <% end %>
+        </div>
       <% end %>
-    </div>
+      <% if @nuevas.total_pages > 1 %>
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <% if @nuevas.current_page > 1 %>
+              <li class="page-item">
+                <%= link_to 'Previous', root_path(page: @nuevas.current_page - 1), class: 'page-link' %>
+              </li>
+            <% end %>
+            <% 1.upto(@nuevas.total_pages) do |page| %>
+              <li class="page-item <%= 'active' if @nuevas.current_page == page %>">
+                <%= link_to page, root_path(page: page), class: 'page-link' %>
+              </li>
+            <% end %>
+            <% if @nuevas.current_page < @nuevas.total_pages %>
+              <li class="page-item">
+                <%= link_to 'Next', root_path(page: @nuevas.current_page + 1), class: 'page-link' %>
+              </li>
+            <% end %>
+          </ul>
+        </nav>
+      <% end %>
+    <% end %>
   </div>
-  
+</div>

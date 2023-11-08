@@ -10,7 +10,13 @@
               <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
               <div class="card-body">
                 <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
-                <p class="card-text"><%= pelicula['vote_average'].truncate %>/10</p>
+                <% @votos=pelicula['vote_average'].to_i.truncate / 2 %>
+                <% (1..5).each do |i| %>
+                <% if i <= @votos.to_i %>
+                <i class="fa fa-star fa-lg"></i>
+                <% end %>
+              <% end %>
+                <p class="card-text"><%= pelicula['vote_average'].truncate / 2%>/5</p>
                 <div class="centrar" style="width: 100%;display:flex;justify-content:center;">
                   <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
                 </div> 

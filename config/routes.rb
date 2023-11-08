@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/descripcion', to: 'todo#descripcion'
   root 'todo#index'
   get '/resultado', to: 'todo#resultado'
+  get '/homepage', to: 'todo#homepage'
   #root 'todo#homepage'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
