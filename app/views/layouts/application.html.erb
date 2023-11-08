@@ -43,6 +43,7 @@
 
                 </ul>
               </li>
+<<<<<<< HEAD
               <% if user_signed_in? %>
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="/lista">Lista de peliculas</a>
@@ -68,6 +69,18 @@
                 <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-outline-success' %>
               <% end %>
             </form>
+=======
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+            </ul>
+
+            <form class="d-flex" role="search" action="/resultado" method="get">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+            
+>>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
           </div>
         </div>
       </nav>

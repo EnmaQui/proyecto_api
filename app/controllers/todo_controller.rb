@@ -82,7 +82,7 @@ class TodoController < ApplicationController
 
   def index
     api_key = '7752de1a342e0930da1c72487148b06b'
-    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}")
+    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}&language=es-ES")
     @link_img='https://image.tmdb.org/t/p/w500'
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true if url.scheme == 'https'
@@ -97,16 +97,25 @@ class TodoController < ApplicationController
     end
   end
   
+<<<<<<< HEAD
 
   
+=======
+>>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
   
 
   def resultado
     api_key = '7752de1a342e0930da1c72487148b06b'
     @link_img = 'https://image.tmdb.org/t/p/w500'
     query_i = params[:query]
+<<<<<<< HEAD
     peli = query_i.to_s.gsub(/\s/, '%20')
   
+=======
+    peli=query_i.to_s.gsub(/\s/, '%20')
+  
+    # Obtener información de la película
+>>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
     url = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&query=#{peli}&include_adult=true&language=es-ES&page=1")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true if url.scheme == 'https'
@@ -118,6 +127,7 @@ class TodoController < ApplicationController
     else
       @error_message = "Error: #{response.code}"
     end
+<<<<<<< HEAD
   
     respond_to do |format|
       format.html { render 'resultado' } # Renderizar la vista HTML
@@ -189,23 +199,8 @@ class TodoController < ApplicationController
       redirect_to new_user_session_path, notice: 'Por favor inicia sesión para acceder a esta página.'
     end
 =======
-    query_i = params[:query]
-    peli=query_i.to_s.gsub(/\s/, '%20')
-  
-    # Obtener información de la película
-    url = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&query=#{peli}&include_adult=true&language=es-ES&page=1")
-    http = Net::HTTP.new(url.host, url.port)
-    http.use_ssl = true if url.scheme == 'https'
-    request = Net::HTTP::Get.new(url.request_uri)
-    response = http.request(request)
-    
-    if response.code == '200'
-      @info = JSON.parse(response.body)['results']
-    else
-      @error_message = "Error: #{response.code}"
-    end
 
-
+>>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
   end
 
   def eliminar_pelicula_lista

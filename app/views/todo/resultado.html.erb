@@ -5,6 +5,7 @@
     <% else %>
       <% if @info.present? && @info.any? %>
         <% @info.each do |pelicula| %>
+<<<<<<< HEAD
 
           <% if pelicula['poster_path'].present? %>
             <div class="col">
@@ -33,7 +34,7 @@
               </div>
             </div>
           <% end %>
-
+=======
           <div class="col">
             <div class="card" style="width: 18rem;height:40rem;">
               <% if pelicula['poster_path'].present? %>
@@ -54,7 +55,7 @@
               </div>
             </div>
           </div>
-
+>>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
         <% end %>
       <% else %>
         <p>No se encontraron resultados</p>
