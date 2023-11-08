@@ -1,0 +1,38 @@
+<!-- app/views/todo/prueba.html.erb -->
+
+<h1>Top Películas Valoradas</h1>
+
+<div class="row">
+  <% @nuevas.each do |movie| %>
+    <div class="col-md-4 mb-3">
+      <div class="card">
+        <img src="<%= @link_img + movie['poster_path'] %>" class="card-img-top" alt="<%= movie['title'] %>">
+        <div class="card-body">
+          <h5 class="card-title"><%= movie['title'] %></h5>
+          <p class="card-text"><%= movie['overview'] %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% if @nuevas.present? %>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <% if params[:page].to_i > 1 %>
+        <li class="page-item"><%= link_to 'Previous', prueba_path(page: params[:page].to_i - 1), class: 'page-link' %></li>
+      <% end %>
+      
+      <% (1..@nuevas.total_pages).each do |page| %>
+        <li class="page-item <%= 'active' if params[:page].to_i == page %>">
+          <%= link_to page, prueba_path(page: page), class: 'page-link' %>
+        </li>
+      <% end %>
+      
+      <% if @nuevas.size == 10 && params[:page].to_i < @nuevas.total_pages %>
+        <li class="page-item"><%= link_to 'Next', prueba_path(page: params[:page].to_i + 1), class: 'page-link' %></li>
+      <% end %>
+    </ul>
+  </nav>
+<% end %>
+
