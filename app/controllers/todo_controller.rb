@@ -120,9 +120,9 @@ class TodoController < ApplicationController
   def resultado
     #'https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&include_adult=true&language=es-ES&page=1' \
     api_key = '7752de1a342e0930da1c72487148b06b'
-    movie_id = params[:parametro]
     @link_img = 'https://image.tmdb.org/t/p/w500'
-    query= params[:nombre]
+    #query= params[:nombre]
+    query= "saw"
     # Obtener información de la película
     url = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&query=#{query}&include_adult=true&language=es-ES&page=1")
     http = Net::HTTP.new(url.host, url.port)
@@ -136,18 +136,6 @@ class TodoController < ApplicationController
       @error_message = "Error: #{response.code}"
     end
     
-    # Obtener información de los videos
-    url_img = URI.parse("https://api.themoviedb.org/3/movie/#{movie_id}/videos?api_key=#{api_key}")
-    http = Net::HTTP.new(url_img.host, url_img.port)
-    http.use_ssl = true if url_img.scheme == 'https'
-    request = Net::HTTP::Get.new(url_img.request_uri)
-    response = http.request(request)
-    
-    if response.code == '200'
-      @info_videos = response.body  # No se necesita parsear, ya es un string JSON
-    else
-      @error_message = "Error: #{response.code}"
-    end
   end
 
 
