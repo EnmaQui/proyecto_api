@@ -35,3 +35,16 @@ body
   text-decoration: none;
 
 }
+
+.dropdown-menu li a:hover
+{
+  color: black !important;
+  background-color: white;
+  padding: 10px;
+}
+
+a
+{
+  text-decoration: none !important;
+  color: white !important;
+}

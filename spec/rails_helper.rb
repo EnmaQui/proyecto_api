@@ -6,7 +6,7 @@ Bundler.require
 
 # Configura Rails de manera que use el entorno de prueba
 ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../config/environment', __dir__)
+
 
 # Requiere las bibliotecas de RSpec
 require 'rspec/rails'

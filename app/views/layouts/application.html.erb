@@ -30,16 +30,13 @@
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categorias
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu dropdown-menu-dark">
                   <%@generos["genres"].each do |lista|%>
-                    <li style="text-align: center;"><%= link_to lista["name"], categoria_path(id_gen: lista['id']) %></li>
+                    <li style="text-align: center;"><%= link_to lista["name"], categoria_path(id_gen: lista['id'], class: 'dropdown-item') %></li>
                   <%end%>
                 </ul>
               </li>
 
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
             </ul>
             <form class="d-flex" role="search" action="/resultado" method="get">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
