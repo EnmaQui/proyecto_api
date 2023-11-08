@@ -43,44 +43,15 @@
 
                 </ul>
               </li>
-<<<<<<< HEAD
-              <% if user_signed_in? %>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/lista">Lista de peliculas</a>
-                </li>
-              <% end %>
-            </ul>
 
-            <form class="d-flex" role="search" action="/resultado" method="get" remote="false" style="margin-right: 10px;">
-
-            <form class="d-flex" role="search" action="/resultado" method="get">
-
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-            <form class="d-flex">
-              <% if user_signed_in? %>
-
-                <!-- Mostrar enlace de cerrar sesión si el usuario ha iniciado sesión -->
-                <%= link_to 'Cerrar Sesión', destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: 'Esta seguro?'}, class: 'btn btn-outline-danger' %>
-              <% else %>
-                <!-- Mostrar enlaces de inicio de sesión y registro si el usuario no ha iniciado sesión -->
-                <%= link_to 'Iniciar Sesión', new_user_session_path, class: 'btn btn-outline-light me-2' %>
-                <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-outline-success' %>
-              <% end %>
-            </form>
-=======
               <li class="nav-item">
                 <a class="nav-link" href="#">Link</a>
               </li>
             </ul>
-
-            <form class="d-flex" role="search" action="/resultado" method="get">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
+            <form class="d-flex" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
-            
->>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
           </div>
         </div>
       </nav>

@@ -3,6 +3,7 @@
     <% if @error_message %>
       <p><%= @error_message %></p>
     <% else %>
+<<<<<<< HEAD
       <% if @info.present? && @info.any? %>
         <% @info.each do |pelicula| %>
 <<<<<<< HEAD
@@ -53,12 +54,21 @@
                   <% end %>
                 </div> 
               </div>
+=======
+      <% @info['results'].each do |pelicula| %>
+        <div class="col">
+          <div class="card" style="width: 18rem;height:40rem;">
+            <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
+              <p class="card-text"><%= pelicula['vote_average'].to_f.truncate %>/10</p>
+              <div class="centrar" style="width: 100%;display:flex;justify-content:center;">
+                <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
+              </div> 
+>>>>>>> parent of 2b3ba6e (107 - aplication of search complete  c and v)
             </div>
           </div>
->>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
-        <% end %>
-      <% else %>
-        <p>No se encontraron resultados</p>
+        </div>
       <% end %>
     <% end %>
   </div>

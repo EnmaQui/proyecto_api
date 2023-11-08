@@ -82,7 +82,7 @@ class TodoController < ApplicationController
 
   def index
     api_key = '7752de1a342e0930da1c72487148b06b'
-    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}&language=es-ES")
+    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}")
     @link_img='https://image.tmdb.org/t/p/w500'
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true if url.scheme == 'https'
@@ -97,127 +97,46 @@ class TodoController < ApplicationController
     end
   end
   
-<<<<<<< HEAD
 
-  
-=======
->>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
+  def prueba
+    api_key = '7752de1a342e0930da1c72487148b06b'
+    url = URI.parse("https://api.themoviedb.org/3/movie/top_rated?api_key=#{api_key}")
+    @link_img='https://image.tmdb.org/t/p/w500'
+    http = Net::HTTP.new(url.host, url.port)
+    http.use_ssl = true if url.scheme == 'https'
+    request = Net::HTTP::Get.new(url.request_uri)
+    response = http.request(request)
+    
+    if response.code == '200'
+      movies = JSON.parse(response.body)['results']
+      page = params[:page] || 1
+      per_page = 10
+      @nuevas = Kaminari.paginate_array(movies).page(page).per(per_page) # Pagina los resultados, 10 por página
+    else
+      @error_message = "Error: #{response.code}"
+    end
+  end
+
   
 
   def resultado
     api_key = '7752de1a342e0930da1c72487148b06b'
     @link_img = 'https://image.tmdb.org/t/p/w500'
-    query_i = params[:query]
-<<<<<<< HEAD
-    peli = query_i.to_s.gsub(/\s/, '%20')
-  
-=======
-    peli=query_i.to_s.gsub(/\s/, '%20')
-  
+    #query= params[:nombre]
+    query= "saw"
     # Obtener información de la película
->>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
-    url = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&query=#{peli}&include_adult=true&language=es-ES&page=1")
+    url = URI.parse("https://api.themoviedb.org/3/search/movie?api_key=#{api_key}&query=#{query}&include_adult=true&language=es-ES&page=1")
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true if url.scheme == 'https'
     request = Net::HTTP::Get.new(url.request_uri)
     response = http.request(request)
   
     if response.code == '200'
-      @info = JSON.parse(response.body)['results']
+      @info = JSON.parse(response.body)
     else
       @error_message = "Error: #{response.code}"
     end
-<<<<<<< HEAD
-  
-    respond_to do |format|
-      format.html { render 'resultado' } # Renderizar la vista HTML
-      format.js   # Renderizar la vista JS (si se usa AJAX)
-    end
-  end
-  
-
-  def enlistar
-    user_id = params[:user_id]
-    pelicula_id = params[:pelicula]
-    accion = params[:accion] # Nuevo parámetro para indicar si se va a enlistar o quitar
-  
-    if accion == 'quitar'
-      # Código para quitar la película de la lista
-      lista = Listum.find_by(user_id: user_id, pelicula: pelicula_id)
-      if lista
-        lista.destroy
-        flash[:success] = "Película quitada de la lista."
-      else
-        flash[:error] = "La película no estaba en la lista."
-      end
-    elsif accion == 'enlistar'
-      # Código para enlistar la película
-      @lista = Listum.new(user_id: user_id, pelicula: pelicula_id)
-  
-      if @lista.save
-        flash[:success] = "Película enlistada exitosamente."
-      else
-        flash[:error] = "No se pudo enlistar la película."
-      end
-    end
-  
-    redirect_to root_path
-  end
-  
-  
-
-  def lista
-    require_login
-  
-    api_key = '7752de1a342e0930da1c72487148b06b'
-    @link_img = 'https://image.tmdb.org/t/p/w500'
-
     
-    @info = []
-  
-    @listas = current_user.listums # Obtener las listas asociadas al usuario actual
-  
-    @listas.each do |lista|
-      movie_id = lista.pelicula
-  
-      url = URI.parse("https://api.themoviedb.org/3/movie/#{movie_id}?api_key=#{api_key}&language=es-ES")
-      http = Net::HTTP.new(url.host, url.port)
-      http.use_ssl = true if url.scheme == 'https'
-      request = Net::HTTP::Get.new(url.request_uri)
-      response = http.request(request)
-  
-      if response.code == '200'
-        @info << JSON.parse(response.body)
-      else
-        @error_message = "Error: #{response.code}"
-      end
-    end
-  end
-  
-  def require_login
-    unless current_user
-      redirect_to new_user_session_path, notice: 'Por favor inicia sesión para acceder a esta página.'
-    end
-=======
-
->>>>>>> 2b3ba6e (107 - aplication of search complete  c and v)
-  end
-
-  def eliminar_pelicula_lista
-    require_login
-  
-    pelicula_id = params[:id]
-  
-    # Encuentra y elimina la lista asociada al usuario actual y a la película seleccionada
-    lista = current_user.listums.find_by(pelicula: pelicula_id)
-    if lista
-      lista.destroy
-      flash[:success] = "Película eliminada de la lista."
-    else
-      flash[:error] = "La película no estaba en la lista."
-    end
-  
-    redirect_to lista_path
   end
   
   
