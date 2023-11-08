@@ -3,19 +3,31 @@
     <% if @error_message %>
       <p><%= @error_message %></p>
     <% else %>
-      <% @info['results'].each do |pelicula| %>
-        <div class="col">
-          <div class="card" style="width: 18rem;height:40rem;">
-            <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
-            <div class="card-body">
-              <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
-              <p class="card-text"><%= pelicula['vote_average'].to_f.truncate %>/10</p>
-              <div class="centrar" style="width: 100%;display:flex;justify-content:center;">
-                <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
-              </div> 
+      <% if @info.present? && @info.any? %>
+        <% @info.each do |pelicula| %>
+          <div class="col">
+            <div class="card" style="width: 18rem;height:40rem;">
+              <% if pelicula['poster_path'].present? %>
+                <img src="<%= @link_img + pelicula['poster_path'] %>" class="card-img-top" alt="">
+              <% end %>
+              <div class="card-body">
+                <% if pelicula['title'].present? %>
+                  <h5 class="card-title"><%= pelicula['title'].upcase %></h5>
+                <% end %>
+                <% if pelicula['vote_average'].present? %>
+                  <p class="card-text"><%= pelicula['vote_average'].to_f.truncate %>/10</p>
+                <% end %>
+                <div class="centrar" style="width: 100%;display:flex;justify-content:center;">
+                  <% if pelicula['id'].present? %>
+                    <%= link_to "Ver mas...", descripcion_path(parametro: pelicula['id']), class: 'btn btn-primary' %>
+                  <% end %>
+                </div> 
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
+      <% else %>
+        <p>No se encontraron resultados</p>
       <% end %>
     <% end %>
   </div>
