@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/resultado', to: 'todo#resultado'
   get '/homepage', to: 'todo#homepage'
   post 'todo/enlistar', to: 'todo#enlistar', as: 'enlistar_pelicula'
+  get '/lista', to: 'todo#lista'
   #root 'todo#homepage'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
