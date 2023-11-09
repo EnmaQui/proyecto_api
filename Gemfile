@@ -1,6 +1,9 @@
 source "https://rubygems.org"
 
 ruby "3.2.2"
+
+gem 'devise'
+
 gem 'bootstrap_pagination'
 
 gem 'kaminari'

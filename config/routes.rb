@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users
+  root 'todo#homepage'
   get '/categoria', to: 'todo#categoria'
   #resources :todo
   get '/descripcion', to: 'todo#descripcion'
-  root 'todo#index'
+  get '/index', to: 'todo#index'
   get '/resultado', to: 'todo#resultado'
   get '/homepage', to: 'todo#homepage'
   #root 'todo#homepage'
