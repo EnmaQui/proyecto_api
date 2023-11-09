@@ -35,12 +35,12 @@
             <% end %>
             <% 1.upto(@nuevas.total_pages) do |page| %>
               <li class="page-item <%= 'active' if @nuevas.current_page == page %>">
-                <%= link_to page, index_path(page: page), class: 'page-link' %>
+                <%= link_to page, root_path(page: page), class: 'page-link' %>
               </li>
             <% end %>
             <% if @nuevas.current_page < @nuevas.total_pages %>
               <li class="page-item">
-                <%= link_to 'Next', index_path(page: @nuevas.current_page + 1), class: 'page-link' %>
+                <%= link_to 'Next', root_path(page: @nuevas.current_page + 1), class: 'page-link' %>
               </li>
             <% end %>
           </ul>

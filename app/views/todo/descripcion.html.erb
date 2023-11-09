@@ -5,12 +5,13 @@
   <div class="clearfix">
     <img src="<%= @link_img + @info["poster_path"] %>" class="col-md-6 float-md-end mb-3 ms-md-3"  alt="Poster de la película">
     <h1><%= @info["title"] %></h1>
-    <%= form_tag({ controller: 'todo', action: 'enlistar' }, method: 'post') do %>
-      <%= hidden_field_tag 'user_id', current_user.id %>
-      <%= hidden_field_tag 'pelicula', @info['id'] %>
-      <%= submit_tag 'Enlistar Película' %>
+    <% if user_signed_in? %>
+      <%= form_tag({ controller: 'todo', action: 'enlistar' }, method: 'post') do %>
+        <%= hidden_field_tag 'user_id', current_user.id %>
+        <%= hidden_field_tag 'pelicula', @info['id'] %>
+        <%= submit_tag 'Enlistar Película' %>
+      <% end %>
     <% end %>
-  
 
   <p><strong>Fecha de lanzamiento:</strong> <%= @info["release_date"] %></p>
   <p><strong>Popularidad:</strong><%= @info["popularity"]%></p>

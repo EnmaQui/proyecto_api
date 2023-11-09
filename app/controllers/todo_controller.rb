@@ -2,6 +2,7 @@ class TodoController < ApplicationController
   
   include Kaminari::PageScopeMethods
   before_action :comun
+  before_action :require_login, only: [:lista]
   require 'json'
   require 'rest-client'
 
@@ -132,21 +133,24 @@ class TodoController < ApplicationController
 
     if @lista.save
       # Éxito: haz algo después de guardar en la base de datos
-      redirect_to index_path, notice: 'Película enlistada exitosamente.'
+      redirect_to root_path, notice: 'Película enlistada exitosamente.'
       
     else
       # Manejo de errores: algo salió mal al guardar
-      redirect_to index_path, notice: 'No se a enlistado'
+      redirect_to root_path, notice: 'No se a enlistado'
     end
   end
 
 
   def lista
-    @listas = Listum.all
+    require_login
+  
     api_key = '7752de1a342e0930da1c72487148b06b'
     @link_img = 'https://image.tmdb.org/t/p/w500'
-  
+    
     @info = []
+  
+    @listas = current_user.listums # Obtener las listas asociadas al usuario actual
   
     @listas.each do |lista|
       movie_id = lista.pelicula
@@ -164,5 +168,29 @@ class TodoController < ApplicationController
       end
     end
   end
+  
+  def require_login
+    unless current_user
+      redirect_to new_user_session_path, notice: 'Por favor inicia sesión para acceder a esta página.'
+    end
+  end
+
+  def eliminar_pelicula_lista
+    require_login
+  
+    pelicula_id = params[:id]
+  
+    # Encuentra y elimina la lista asociada al usuario actual y a la película seleccionada
+    lista = current_user.listums.find_by(pelicula: pelicula_id)
+    if lista
+      lista.destroy
+      flash[:success] = "Película eliminada de la lista."
+    else
+      flash[:error] = "La película no estaba en la lista."
+    end
+  
+    redirect_to lista_path
+  end
+  
   
 end
