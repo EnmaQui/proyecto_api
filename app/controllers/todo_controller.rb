@@ -188,7 +188,7 @@ class TodoController < ApplicationController
     unless current_user
       redirect_to new_user_session_path, notice: 'Por favor inicia sesión para acceder a esta página.'
     end
-=======
+
     query_i = params[:query]
     peli=query_i.to_s.gsub(/\s/, '%20')
   
