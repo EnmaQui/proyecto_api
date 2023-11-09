@@ -14,7 +14,7 @@
 
   <body>
     <head>
-      <nav class="navbar navbar-expand-lg  navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -25,28 +25,34 @@
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
               </li>
-
+    
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Categorias
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark">
-                  <%@generos["genres"].each do |lista|%>
+                  <% @generos["genres"].each do |lista| %>
                     <li style="text-align: center;"><%= link_to lista["name"], categoria_path(id_gen: lista['id'], class: 'dropdown-item') %></li>
-                  <%end%>
+                  <% end %>
                 </ul>
               </li>
-
             </ul>
-            <form class="d-flex" role="search" action="/resultado" method="get">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="query">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+    
+            <form class="d-flex">
+              <% if user_signed_in? %>
+                <!-- Mostrar enlace de cerrar sesión si el usuario ha iniciado sesión -->
+                <%= link_to 'Cerrar Sesión', destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: 'Esta seguro?'}, class: 'btn btn-outline-danger' %>
+              <% else %>
+                <!-- Mostrar enlaces de inicio de sesión y registro si el usuario no ha iniciado sesión -->
+                <%= link_to 'Iniciar Sesión', new_user_session_path, class: 'btn btn-outline-light me-2' %>
+                <%= link_to 'Registrarse', new_user_registration_path, class: 'btn btn-outline-success' %>
+              <% end %>
             </form>
           </div>
         </div>
       </nav>
-      
     </head>
+    
 
     
     <%= yield %>

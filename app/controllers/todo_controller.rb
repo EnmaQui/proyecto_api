@@ -1,4 +1,5 @@
 class TodoController < ApplicationController
+  
   include Kaminari::PageScopeMethods
   before_action :comun
   require 'json'
