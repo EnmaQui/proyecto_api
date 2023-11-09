@@ -74,8 +74,15 @@ class TodoController < ApplicationController
       @error_message = "Error: #{response.code}"
     end
     
-    # Verificar si la película está en las listas del usuario actual
-    @esta_en_lista = current_user.listums.exists?(pelicula: movie_id)
+
+
+    if user_signed_in?
+      @esta_en_lista = current_user.listums.exists?(pelicula: movie_id)
+    else
+      @esta_en_lista = false
+      # O muestra un mensaje de error, según lo que quieras hacer.
+    end
+    
   end
   
 
