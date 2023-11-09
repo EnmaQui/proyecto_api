@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :users
+  #root 'todo#homepage'
   get '/categoria', to: 'todo#categoria'
   #resources :todo
   get '/descripcion', to: 'todo#descripcion'
   root 'todo#index'
   get '/resultado', to: 'todo#resultado'
+  get '/homepage', to: 'todo#homepage'
+  post 'todo/enlistar', to: 'todo#enlistar', as: 'enlistar_pelicula'
+  get '/lista', to: 'todo#lista'
+  delete 'eliminar_pelicula_lista/:id', to: 'todo#eliminar_pelicula_lista', as: 'eliminar_pelicula_lista'
   #root 'todo#homepage'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

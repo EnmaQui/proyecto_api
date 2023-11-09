@@ -1,6 +1,9 @@
 source "https://rubygems.org"
 
 ruby "3.2.2"
+
+gem 'devise'
+
 gem 'bootstrap_pagination'
 
 gem 'kaminari'
@@ -17,7 +20,7 @@ gem 'rest-client'
 
 gem "rails", "~> 7.1.0"
 
-gem "sqlite3", "~> 1.4"
+gem "sqlite3", "~> 1.6.8"
 
 gem "puma", ">= 5.0"
 
@@ -42,6 +45,8 @@ group :development do
 end
 
 group :test do
+  gem "rspec-rails"
   gem "capybara"
   gem "selenium-webdriver"
+  gem "rails-controller-testing"
 end

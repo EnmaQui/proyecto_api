@@ -1,0 +1,22 @@
+<h1 style="color: white;">Listas:</h1>
+
+<div class="container">
+  <% @info.each do |movie_info| %>
+    <div class="card mb-3" style="max-width: 80%;">
+        <div class="row g-0">
+        <div class="col-md-4" style="height: 300px; width: auto;">
+            <img src="<%= @link_img + movie_info["poster_path"] %>" class="img-fluid rounded-start rounded" alt="Poster de la película" style="aspect-ratio: 2/3;">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+            <h1 class="card-title"><%= movie_info["title"] %></h1>
+            <p class="card-text"><%= movie_info["overview"] %></p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            
+            <%= link_to "Eliminar de la lista", eliminar_pelicula_lista_path(movie_info["id"]), data: { turbo_method: :delete, turbo_confirm: 'Esta seguro?'}, class: "btn btn-danger" %>
+            </div>
+        </div>
+        </div>
+    </div>
+    <% end %>
+</div>
