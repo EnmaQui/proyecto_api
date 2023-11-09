@@ -73,7 +73,11 @@ class TodoController < ApplicationController
     else
       @error_message = "Error: #{response.code}"
     end
+    
+    # Verificar si la película está en las listas del usuario actual
+    @esta_en_lista = current_user.listums.exists?(pelicula: movie_id)
   end
+  
 
 
   def index
@@ -125,22 +129,32 @@ class TodoController < ApplicationController
   def enlistar
     user_id = params[:user_id]
     pelicula_id = params[:pelicula]
-
-    # Hacer algo con user_id y pelicula_id
-    # Por ejemplo, crear un nuevo registro en la tabla Lista
-
-    @lista = Listum.new(user_id: user_id, pelicula: pelicula_id)
-
-    if @lista.save
-      # Éxito: haz algo después de guardar en la base de datos
-      redirect_to root_path, notice: 'Película enlistada exitosamente.'
-      
-    else
-      # Manejo de errores: algo salió mal al guardar
-      redirect_to root_path, notice: 'No se a enlistado'
+    accion = params[:accion] # Nuevo parámetro para indicar si se va a enlistar o quitar
+  
+    if accion == 'quitar'
+      # Código para quitar la película de la lista
+      lista = Listum.find_by(user_id: user_id, pelicula: pelicula_id)
+      if lista
+        lista.destroy
+        flash[:success] = "Película quitada de la lista."
+      else
+        flash[:error] = "La película no estaba en la lista."
+      end
+    elsif accion == 'enlistar'
+      # Código para enlistar la película
+      @lista = Listum.new(user_id: user_id, pelicula: pelicula_id)
+  
+      if @lista.save
+        flash[:success] = "Película enlistada exitosamente."
+      else
+        flash[:error] = "No se pudo enlistar la película."
+      end
     end
+  
+    redirect_to root_path
   end
-
+  
+  
 
   def lista
     require_login

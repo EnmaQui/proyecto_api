@@ -5,13 +5,27 @@
   <div class="clearfix">
     <img src="<%= @link_img + @info["poster_path"] %>" class="col-md-6 float-md-end mb-3 ms-md-3"  alt="Poster de la película">
     <h1><%= @info["title"] %></h1>
+
+
     <% if user_signed_in? %>
+    <% if @esta_en_lista %>
       <%= form_tag({ controller: 'todo', action: 'enlistar' }, method: 'post') do %>
         <%= hidden_field_tag 'user_id', current_user.id %>
         <%= hidden_field_tag 'pelicula', @info['id'] %>
-        <%= submit_tag 'Enlistar Película' %>
+        <%= hidden_field_tag 'accion', 'quitar' %> <!-- Agregar campo para indicar que se va a quitar -->
+        <%= submit_tag 'Quitar de la lista', class: "btn btn-danger" %>
+      <% end %>
+    <% else %>
+      <%= form_tag({ controller: 'todo', action: 'enlistar' }, method: 'post') do %>
+        <%= hidden_field_tag 'user_id', current_user.id %>
+        <%= hidden_field_tag 'pelicula', @info['id'] %>
+        <%= hidden_field_tag 'accion', 'enlistar' %> <!-- Agregar campo para indicar que se va a enlistar -->
+        <%= submit_tag 'Enlistar Película', class: "btn btn-success" %>
       <% end %>
     <% end %>
+  <% end %>
+  
+
 
   <p><strong>Fecha de lanzamiento:</strong> <%= @info["release_date"] %></p>
   <p><strong>Popularidad:</strong><%= @info["popularity"]%></p>
