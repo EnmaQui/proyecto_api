@@ -1,4 +1,20 @@
-<h1>Listas:</h1>
+<h1 style="color: white;">Listas:</h1>
 
-<img src="<%= @link_img + @info["poster_path"] %>" class="col-md-6 float-md-end mb-3 ms-md-3"  alt="Poster de la película">
-<h1><%= @info["title"] %></h1>
+<div class="container">
+  <% @info.each do |movie_info| %>
+    <div class="card mb-3" style="max-width: 80%;">
+      <div class="row g-0">
+        <div class="col-md-4" style="height: 300px; width: auto;">
+          <img src="<%= @link_img + movie_info["poster_path"] %>" class="img-fluid rounded-start rounded" alt="Poster de la película" style="aspect-ratio: 2/3;">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h1 class="card-title"><%= movie_info["title"] %></h1>
+            <p class="card-text"><%= movie_info["overview"] %></p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
