@@ -121,5 +121,24 @@ class TodoController < ApplicationController
   end
   
 
+  def enlistar
+    user_id = params[:user_id]
+    pelicula_id = params[:pelicula]
+
+    # Hacer algo con user_id y pelicula_id
+    # Por ejemplo, crear un nuevo registro en la tabla Lista
+
+    @lista = Listum.new(user_id: user_id, pelicula: pelicula_id)
+
+    if @lista.save
+      # Éxito: haz algo después de guardar en la base de datos
+      redirect_to index_path, notice: 'Película enlistada exitosamente.'
+      
+    else
+      # Manejo de errores: algo salió mal al guardar
+      redirect_to index_path, notice: 'No se a enlistado'
+    end
+  end
+
 
 end
